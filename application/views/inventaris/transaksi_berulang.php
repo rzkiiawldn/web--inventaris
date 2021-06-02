@@ -29,7 +29,7 @@
                             <th>Tanggal Input</th>
                             <th>Staff On Duty</th>
                             <th>Status Detail</th>
-                            <th width="20%">Aksi</th>
+                            <th width="16%">Aksi</th>
                         </tr>
                     </thead>
                     <?php
@@ -44,9 +44,9 @@
                                 <td><?= $row->staff_onduty; ?></td>
                                 <td><?= $row->status_detail; ?></td>
                                 <td>
-                                    <a href="<?= base_url('inventaris/transaksi_berulang_detail/' . $row->id_berulang); ?>" class="btn btn-sm btn-info">detail</a>
-                                    <a href="<?= base_url('inventaris/transaksi_berulang_edit/' . $row->id_berulang); ?>" class="btn btn-sm btn-success">edit</a>
-                                    <a href="<?= base_url('inventaris/transaksi_berulang_delete/' . $row->id_berulang); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
+                                    <a href="<?= base_url('inventaris/transaksi_berulang_detail/' . $row->id_berulang); ?>" class="btn btn-sm btn-info" title="detail transaksi"><i class="fas fa-eye"></i></a>
+                                    <a href="<?= base_url('inventaris/transaksi_berulang_edit/' . $row->id_berulang); ?>" class="btn btn-sm btn-success" title="edit"><i class="fas fa-pen"></i></a>
+                                    <a href="<?= base_url('inventaris/transaksi_berulang_delete/' . $row->id_berulang); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')" title="detail transaksi"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         </tbody>
