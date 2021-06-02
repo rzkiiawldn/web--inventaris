@@ -24,6 +24,7 @@
                     <thead>
                         <tr>
                             <th width="5%">#</th>
+                            <th>Kode Vendor</th>
                             <th>Nama Vendor</th>
                             <th>Kontak Vendor</th>
                             <th>Alamat Vendor</th>
@@ -36,12 +37,13 @@
                         <tbody>
                             <tr>
                                 <td><?= $no++; ?></td>
+                                <td><?= $row->kode_vendor; ?></td>
                                 <td><?= $row->nama_vendor; ?></td>
                                 <td><?= $row->kontak_vendor; ?></td>
                                 <td><?= $row->alamat_vendor; ?></td>
                                 <td>
-                                    <a href="<?= base_url('inventaris/vendor_edit/' . $row->kode_vendor); ?>" class="btn btn-sm btn-success">edit</a>
-                                    <a href="<?= base_url('inventaris/vendor_delete/' . $row->kode_vendor); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
+                                    <a href="<?= base_url('inventaris/vendor_edit/' . $row->id_vendor); ?>" class="btn btn-sm btn-success">edit</a>
+                                    <a href="<?= base_url('inventaris/vendor_delete/' . $row->id_vendor); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
                                 </td>
                             </tr>
                         </tbody>

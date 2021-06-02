@@ -39,13 +39,14 @@
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td><?= $row->kode_transaksibarang; ?></td>
-                                <td><?= $row->kode_radio; ?></td>
+                                <td><?= $row->nama_radio; ?></td>
                                 <td><?= $row->tgl_beli; ?></td>
-                                <td><?= $row->kode_jenisbarang; ?></td>
+                                <td><?= $row->nama_jenisbarang; ?></td>
                                 <td><?= $row->versi_barang; ?></td>
                                 <td>
-                                    <a href="<?= base_url('inventaris/transaksi_barang_edit/' . $row->kode_transaksibarang); ?>" class="btn btn-sm btn-success">edit</a>
-                                    <a href="<?= base_url('inventaris/transaksi_barang_delete/' . $row->kode_transaksibarang); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
+                                    <a href="<?= base_url('inventaris/transaksi_barang_detail/' . $row->id_transaksi); ?>" class="btn btn-sm btn-info">detail</a>
+                                    <a href="<?= base_url('inventaris/transaksi_barang_edit/' . $row->id_transaksi); ?>" class="btn btn-sm btn-success">edit</a>
+                                    <a href="<?= base_url('inventaris/transaksi_barang_delete/' . $row->id_transaksi); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
                                 </td>
                             </tr>
                         </tbody>

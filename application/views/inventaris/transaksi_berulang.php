@@ -26,12 +26,9 @@
                             <th width="5%">#</th>
                             <th>Kode Transaksi</th>
                             <th>Kode Transaksi Barang</th>
-                            <th>Keterangan</th>
                             <th>Tanggal Input</th>
                             <th>Staff On Duty</th>
                             <th>Status Detail</th>
-                            <th>Kode Vendor</th>
-                            <th>Biaya Service</th>
                             <th width="20%">Aksi</th>
                         </tr>
                     </thead>
@@ -43,15 +40,13 @@
                                 <td><?= $no++; ?></td>
                                 <td><?= $row->kode_transaksi; ?></td>
                                 <td><?= $row->kode_transaksibarang; ?></td>
-                                <td><?= $row->keterangan; ?></td>
                                 <td><?= $row->tanggal_input; ?></td>
                                 <td><?= $row->staff_onduty; ?></td>
                                 <td><?= $row->status_detail; ?></td>
-                                <td><?= $row->kode_vendor; ?></td>
-                                <td><?= $row->biaya_service; ?></td>
                                 <td>
-                                    <a href="<?= base_url('inventaris/transaksi_berulang_edit/' . $row->kode_transaksi); ?>" class="btn btn-sm btn-success">edit</a>
-                                    <a href="<?= base_url('inventaris/transaksi_berulang_delete/' . $row->kode_transaksi); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
+                                    <a href="<?= base_url('inventaris/transaksi_berulang_detail/' . $row->id_berulang); ?>" class="btn btn-sm btn-info">detail</a>
+                                    <a href="<?= base_url('inventaris/transaksi_berulang_edit/' . $row->id_berulang); ?>" class="btn btn-sm btn-success">edit</a>
+                                    <a href="<?= base_url('inventaris/transaksi_berulang_delete/' . $row->id_berulang); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
                                 </td>
                             </tr>
                         </tbody>

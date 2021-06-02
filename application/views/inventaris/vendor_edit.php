@@ -16,7 +16,14 @@
     <div class="card-body justify-content-center">
       <form method="post" action="">
 
-        <input type="hidden" class="form-control" id="kode_vendor" name="kode_vendor" value="<?= $vendor->kode_vendor ?>">
+        <input type="hidden" class="form-control" id="id_vendor" name="id_vendor" value="<?= $vendor->id_vendor ?>">
+        <div class="form-group row">
+          <label for="kode_vendor" class="col-sm-3 col-form-label">Kode vendor</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="kode_vendor" name="kode_vendor" value="<?= $vendor->kode_vendor ?>" readonly>
+            <?= form_error('kode_vendor', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+        </div>
         <div class="form-group row">
           <label for="nama_vendor" class="col-sm-3 col-form-label">nama vendor</label>
           <div class="col-sm-9">

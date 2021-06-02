@@ -16,9 +16,16 @@
     <div class="card-body justify-content-center">
       <form method="post" action="">
 
-        <input type="hidden" class="form-control" id="kode_jenisbarang" name="kode_jenisbarang" value="<?= $jenis_barang->kode_jenisbarang ?>">
+        <input type="hidden" class="form-control" id="id_jenisbarang" name="id_jenisbarang" value="<?= $jenis_barang->id_jenisbarang ?>">
         <div class="form-group row">
-          <label for="nama_jenisbarang" class="col-sm-3 col-form-label">Nama Dept Owner</label>
+          <label for="kode_jenisbarang" class="col-sm-3 col-form-label">Kode Jenis Barang</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="kode_jenisbarang" name="kode_jenisbarang" readonly value="<?= $jenis_barang->kode_jenisbarang ?>">
+            <?= form_error('kode_jenisbarang', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="nama_jenisbarang" class="col-sm-3 col-form-label">Nama Jenis Barang</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="nama_jenisbarang" name="nama_jenisbarang" value="<?= $jenis_barang->nama_jenisbarang ?>">
             <?= form_error('nama_jenisbarang', '<small class="text-danger pl-3">', '</small>'); ?>

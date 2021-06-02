@@ -7,7 +7,7 @@
       <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
     </div>
     <div class="col">
-      <a href="<?= base_url('inventaris/status'); ?>" class="btn btn-primary mb-3 float-right"><i class="fas fa-chevron-circle-left"></i> Kembali</a>
+      <a href="<?= base_url('inventaris/vendor'); ?>" class="btn btn-primary mb-3 float-right"><i class="fas fa-chevron-circle-left"></i> Kembali</a>
     </div>
   </div>
 
@@ -15,6 +15,13 @@
   <div class="card shadow mb-4 text-uppercase">
     <div class="card-body justify-content-center">
       <form method="post" action="">
+        <div class="form-group row">
+          <label for="kode_vendor" class="col-sm-3 col-form-label">kode vendor</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="kode_vendor" name="kode_vendor" value="<?= sprintf("%02s", $kode) ?>" readonly>
+            <?= form_error('kode_vendor', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+        </div>
         <div class="form-group row">
           <label for="nama_vendor" class="col-sm-3 col-form-label">nama vendor</label>
           <div class="col-sm-9">

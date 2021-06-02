@@ -23,8 +23,8 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th width="5%">#</th>
-                            <th>Kode</th>
+                            <th width="8%">#</th>
+                            <th width="20%">Kode</th>
                             <th>Nama Radio</th>
                             <th width="20%">Aksi</th>
                         </tr>

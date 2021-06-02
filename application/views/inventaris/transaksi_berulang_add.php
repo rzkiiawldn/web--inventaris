@@ -16,6 +16,13 @@
     <div class="card-body justify-content-center">
       <form method="post" action="">
         <div class="form-group row">
+          <label for="kode_transaksi" class="col-sm-3 col-form-label">Kode Transaksi</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="kode_transaksi" name="kode_transaksi" readonly value="<?= sprintf("%09s", $kode) ?>">
+            <?= form_error('kode_transaksi', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="kode_transaksibarang" class="col-sm-3 col-form-label">Kode Transaksi Barang</label>
           <div class="col-sm-9">
             <select name="kode_transaksibarang" id="kode_transaksibarang" class="form-control" required>
@@ -32,13 +39,6 @@
           <div class="col-sm-9">
             <textarea name="keterangan" id="keterangan" rows="8" class="form-control"><?= set_value('keterangan') ?></textarea>
             <?= form_error('keterangan', '<small class="text-danger pl-3">', '</small>'); ?>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tgl_input" class="col-sm-3 col-form-label">Tanggal Input</label>
-          <div class="col-sm-9">
-            <input type="date" class="form-control" id="tgl_input" name="tgl_input" value="<?= set_value('tgl_input') ?>">
-            <?= form_error('tgl_input', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
         </div>
         <div class="form-group row">

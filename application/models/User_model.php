@@ -19,12 +19,4 @@ class User_model extends CI_Model
 		}
 		return $this->db->query('SELECT * FROM user_level')->result();
 	}
-
-	public function find($id_user)
-	{
-		$this->db->join('user_level', 'user.id_level = user_level.id_level', 'LEFT');
-		$this->db->where('id_user', $id_user);
-		$result = $this->db->get('user');
-		return $result->row();
-	}
 }

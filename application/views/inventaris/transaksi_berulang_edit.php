@@ -15,6 +15,14 @@
   <div class="card shadow mb-4 text-uppercase">
     <div class="card-body justify-content-center">
       <form method="post" action="">
+        <input type="hidden" class="form-control" id="id_berulang" name="id_berulang" value="<?= $transaksi_berulang->id_berulang ?>">
+        <div class="form-group row">
+          <label for="kode_transaksi" class="col-sm-3 col-form-label">Kode Transaksi</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="kode_transaksi" name="kode_transaksi" value="<?= $transaksi_berulang->kode_transaksi ?>" readonly>
+            <?= form_error('kode_transaksi', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+        </div>
         <div class="form-group row">
           <label for="kode_transaksibarang" class="col-sm-3 col-form-label">Kode Transaksi Barang</label>
           <div class="col-sm-9">
@@ -36,13 +44,6 @@
           <div class="col-sm-9">
             <textarea name="keterangan" id="keterangan" rows="8" class="form-control"><?= $transaksi_berulang->keterangan ?></textarea>
             <?= form_error('keterangan', '<small class="text-danger pl-3">', '</small>'); ?>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tgl_input" class="col-sm-3 col-form-label">Tanggal Input</label>
-          <div class="col-sm-9">
-            <input type="date" class="form-control" id="tgl_input" name="tgl_input" value="<?= $transaksi_berulang->tanggal_input ?>">
-            <?= form_error('tgl_input', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
         </div>
         <div class="form-group row">

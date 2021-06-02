@@ -16,6 +16,13 @@
     <div class="card-body justify-content-center">
       <form method="post" action="">
         <div class="form-group row">
+          <label for="kode_jenisbarang" class="col-sm-3 col-form-label">Kode Jenis Barang</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="kode_jenisbarang" name="kode_jenisbarang" value=" <?= sprintf("%03s", $kode) ?>" readonly>
+            <?= form_error('kode_jenisbarang', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="nama_jenisbarang" class="col-sm-3 col-form-label">Nama Jenis Barang</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="nama_jenisbarang" name="nama_jenisbarang" value="<?= set_value('nama_jenisbarang') ?>">
