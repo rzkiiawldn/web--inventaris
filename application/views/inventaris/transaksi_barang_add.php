@@ -14,7 +14,8 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4 text-uppercase">
     <div class="card-body justify-content-center">
-      <form method="post" action="" enctype="multipart/form-data">
+      
+    <?= form_open_multipart() ?>
         <div class="form-group row">
           <label for="kode_transaksibarang" class="col-sm-3 col-form-label">Kode Transaksi Barang</label>
           <div class="col-sm-9">
@@ -128,12 +129,12 @@
         <div class="form-group row">
           <label class="col-sm-3">Foto Item</label>
           <div class="col-sm-9">
-            <input type="file" name="foto_item" class="form-control">
+            <input type="file" name="foto_item" class="form-control" required>
             <?= form_error('foto_item', '<small class="text-danger text-center">', '</small>'); ?>
           </div>
         </div>
         <button class="btn btn-primary float-right" type="submit">Simpan</button>
-      </form>
+      <?= form_close() ?>
     </div>
   </div>
 </div>

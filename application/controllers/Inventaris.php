@@ -106,9 +106,9 @@ class Inventaris extends CI_Controller
         $id_level = $this->session->userdata('id_level');
         $level = $this->db->get_where('user_level',['id_level' => $id_level])->row();
         if($level->level == 'Admin' || $level->level == 'EDP'){
-            $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user")->result();
+            $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user ORDER BY kode_transaksi DESC")->result();
         } else {
-            $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE staff_onduty = $id_user")->result();
+            $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE staff_onduty = $id_user ORDER BY kode_transaksi DESC")->result();
         }
         $data = [
             'judul'     => 'Transaksi Berulang',
@@ -239,9 +239,9 @@ class Inventaris extends CI_Controller
         $id_level = $this->session->userdata('id_level');
         $level = $this->db->get_where('user_level',['id_level' => $id_level])->row();
         if($level->level == 'Admin' || $level->level == 'EDP'){
-            $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner")->result();
+            $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner ORDER BY kode_transaksibarang DESC")->result();
         } else {
-            $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner WHERE user_owner = $id_user")->result();
+            $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner WHERE user_owner = $id_user ORDER BY kode_transaksibarang DESC")->result();
         }
         $data = [
             'judul'             => 'Transaksi Barang',
@@ -289,7 +289,6 @@ class Inventaris extends CI_Controller
         $this->form_validation->set_rules('serial_number', 'serial_number', 'required|trim');
         $this->form_validation->set_rules('kode_vendor', 'kode_vendor', 'required|trim');
         $this->form_validation->set_rules('masa_garansi', 'masa_garansi', 'required|trim');
-        $this->form_validation->set_rules('foto_item', 'foto_item', 'required|trim');
         $this->form_validation->set_rules('kode_statusbarang', 'kode_statusbarang', 'required|trim');
         $this->form_validation->set_rules('kode_deptowner', 'kode_deptowner', 'required|trim');
         if ($this->form_validation->run() == false) {

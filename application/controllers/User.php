@@ -66,6 +66,7 @@ class User extends CI_Controller
 			$this->load->view('template/_footer');
 		} else {
 			$data = [
+				'nama'      	=> htmlspecialchars($this->input->post('nama', TRUE)),
 				'username'      => htmlspecialchars($this->input->post('username', TRUE)),
 				'password'      => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
 				'id_level'      => $this->input->post('id_level')
@@ -97,7 +98,9 @@ class User extends CI_Controller
 			$password 	= $this->input->post('password1');
 			$id_level 	= $this->input->post('id_level', TRUE);
 			$username 	= $this->input->post('username', TRUE);
+			$nama 	= $this->input->post('nama', TRUE);
 
+			$this->db->set('nama', $nama);
 			$this->db->set('username', $username);
 			$this->db->set('id_level', $id_level);
 			if (!empty($password)) {

@@ -24,6 +24,7 @@
           <thead>
             <tr>
               <th>#</th>
+              <th>Nama</th>
               <th>username</th>
               <th>Level</th>
               <th>Aksi</th>
@@ -35,6 +36,7 @@
             <tbody>
               <tr>
                 <td><?= $no++; ?></td>
+                <td><?= $user->nama; ?></td>
                 <td><?= $user->username; ?></td>
                 <td><?= $user->level; ?></td>
                 <td>
