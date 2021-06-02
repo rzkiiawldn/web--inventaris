@@ -79,7 +79,7 @@
           </tr>
           <tr>
             <th width="30%">User Owner</th>
-            <td>: <?= $transaksi_barang->user_owner ?></td>
+            <td>: <?= $transaksi_barang->nama ?></td>
           </tr>
           <tr>
             <th width="30%">Departemen</th>

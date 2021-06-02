@@ -42,13 +42,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="staff_onduty" class="col-sm-3 col-form-label">Staff Onduty</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="staff_onduty" name="staff_onduty" value="<?= set_value('staff_onduty') ?>">
-            <?= form_error('staff_onduty', '<small class="text-danger pl-3">', '</small>'); ?>
-          </div>
-        </div>
-        <div class="form-group row">
           <label for="status_detail" class="col-sm-3 col-form-label">Status Detail</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="status_detail" name="status_detail" value="<?= set_value('status_detail') ?>">

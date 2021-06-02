@@ -102,10 +102,18 @@ class Inventaris extends CI_Controller
 
     public function transaksi_berulang()
     {
+        $id_user = $this->session->userdata('id_user');
+        $id_level = $this->session->userdata('id_level');
+        $level = $this->db->get_where('user_level',['id_level' => $id_level])->row();
+        if($level->level == 'Admin' || $level->level == 'EDP'){
+            $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user")->result();
+        } else {
+            $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE staff_onduty = $id_user")->result();
+        }
         $data = [
             'judul'     => 'Transaksi Berulang',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_berulang'    => $this->db->get('tb_transaksi_berulang')->result()
+            'transaksi_berulang'    => $transaksi_berulang
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_berulang');
@@ -117,7 +125,7 @@ class Inventaris extends CI_Controller
         $data = [
             'judul'     => 'Transaksi Berulang',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_berulang'    => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang WHERE id_berulang = $id_berulang")->row(),
+            'transaksi_berulang'    => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE id_berulang = $id_berulang")->row(),
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_berulang_detail');
@@ -138,7 +146,6 @@ class Inventaris extends CI_Controller
         ];
         $this->form_validation->set_rules('kode_transaksibarang', 'kode_transaksibarang', 'required|trim');
         $this->form_validation->set_rules('keterangan', 'keterangan', 'required|trim');
-        $this->form_validation->set_rules('staff_onduty', 'staff_onduty', 'required|trim');
         $this->form_validation->set_rules('status_detail', 'status_detail', 'required|trim');
         $this->form_validation->set_rules('kode_vendor', 'kode_vendor', 'required|trim');
         $this->form_validation->set_rules('biaya_service', 'biaya_service', 'required|trim');
@@ -148,18 +155,19 @@ class Inventaris extends CI_Controller
             $this->load->view('inventaris/transaksi_berulang_add');
             $this->load->view('template/_footer');
         } else {
+            $kode_transaksi         = $this->input->post('kode_transaksi');
             $kode_transaksibarang         = $this->input->post('kode_transaksibarang');
             $keterangan         = $this->input->post('keterangan');
-            $staff_onduty           = $this->input->post('staff_onduty');
             $status_detail   = $this->input->post('status_detail');
             $kode_vendor       = $this->input->post('kode_vendor');
             $biaya_service      = $this->input->post('biaya_service');
 
             $data = [
+                'kode_transaksi'        => $kode_transaksi,                
                 'kode_transaksibarang'        => $kode_transaksibarang,
                 'keterangan'        => $keterangan,
                 'tanggal_input'     => date('Y-m-d'),
-                'staff_onduty'      => $staff_onduty,
+                'staff_onduty'      => $this->session->userdata('id_user'),
                 'status_detail'     => $status_detail,
                 'kode_vendor'       => $kode_vendor,
                 'biaya_service'     => $biaya_service
@@ -183,7 +191,6 @@ class Inventaris extends CI_Controller
 
         $this->form_validation->set_rules('kode_transaksibarang', 'kode_transaksibarang', 'required|trim');
         $this->form_validation->set_rules('keterangan', 'keterangan', 'required|trim');
-        $this->form_validation->set_rules('staff_onduty', 'staff_onduty', 'required|trim');
         $this->form_validation->set_rules('status_detail', 'status_detail', 'required|trim');
         $this->form_validation->set_rules('kode_vendor', 'kode_vendor', 'required|trim');
         $this->form_validation->set_rules('biaya_service', 'biaya_service', 'required|trim');
@@ -197,7 +204,6 @@ class Inventaris extends CI_Controller
             $kode_transaksi         = $this->input->post('kode_transaksi');
             $kode_transaksibarang   = $this->input->post('kode_transaksibarang');
             $keterangan         = $this->input->post('keterangan');
-            $staff_onduty       = $this->input->post('staff_onduty');
             $status_detail      = $this->input->post('status_detail');
             $kode_vendor        = $this->input->post('kode_vendor');
             $biaya_service      = $this->input->post('biaya_service');
@@ -205,7 +211,6 @@ class Inventaris extends CI_Controller
             $this->db->set('kode_transaksi', $kode_transaksi);
             $this->db->set('kode_transaksibarang', $kode_transaksibarang);
             $this->db->set('keterangan', $keterangan);
-            $this->db->set('staff_onduty', $staff_onduty);
             $this->db->set('status_detail', $status_detail);
             $this->db->set('biaya_service', $biaya_service);
             $this->db->set('kode_vendor', $kode_vendor);
@@ -229,10 +234,19 @@ class Inventaris extends CI_Controller
 
     public function transaksi_barang()
     {
+        
+        $id_user = $this->session->userdata('id_user');
+        $id_level = $this->session->userdata('id_level');
+        $level = $this->db->get_where('user_level',['id_level' => $id_level])->row();
+        if($level->level == 'Admin' || $level->level == 'EDP'){
+            $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner")->result();
+        } else {
+            $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner WHERE user_owner = $id_user")->result();
+        }
         $data = [
             'judul'             => 'Transaksi Barang',
             'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner")->result(),
+            'transaksi_barang'  => $transaksi_barang
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_barang');
@@ -244,7 +258,7 @@ class Inventaris extends CI_Controller
         $data = [
             'judul'             => 'Transaksi Barang',
             'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner WHERE id_transaksi = $id_transaksi")->row(),
+            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner  JOIN user ON tb_transaksi.user_owner = user.id_user  WHERE id_transaksi = $id_transaksi")->row(),
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_barang_detail');
@@ -278,7 +292,6 @@ class Inventaris extends CI_Controller
         $this->form_validation->set_rules('foto_item', 'foto_item', 'required|trim');
         $this->form_validation->set_rules('kode_statusbarang', 'kode_statusbarang', 'required|trim');
         $this->form_validation->set_rules('kode_deptowner', 'kode_deptowner', 'required|trim');
-        $this->form_validation->set_rules('user_owner', 'user_owner', 'required|trim');
         if ($this->form_validation->run() == false) {
             $this->load->view('template/_header', $data);
             $this->load->view('inventaris/transaksi_barang_add');
@@ -294,10 +307,9 @@ class Inventaris extends CI_Controller
             $kode_vendor        = $this->input->post('kode_vendor');
             $masa_garansi       = $this->input->post('masa_garansi');
             $kode_statusbarang  = $this->input->post('kode_statusbarang');
-            $user_ga            = $data['user']->username;
+            $user_ga            = $this->input->post('kode_statusbarang');
             $tgl_input          = date('Y-m-d');
             $kode_deptowner     = $this->input->post('kode_deptowner');
-            $user_owner         = $this->input->post('user_owner');
 
             $foto_item = $_FILES['foto_item'];
             if ($foto_item = '') {
@@ -329,7 +341,7 @@ class Inventaris extends CI_Controller
                 'user_ga'           => $user_ga,
                 'tgl_input'         => $tgl_input,
                 'kode_deptowner'    => $kode_deptowner,
-                'user_owner'        => $user_owner,
+                'user_owner'        => $this->session->userdata('id_user'),
             ];
             $this->db->insert('tb_transaksi', $data);
 
@@ -360,7 +372,6 @@ class Inventaris extends CI_Controller
         $this->form_validation->set_rules('masa_garansi', 'masa_garansi', 'required|trim');
         $this->form_validation->set_rules('kode_statusbarang', 'kode_statusbarang', 'required|trim');
         $this->form_validation->set_rules('kode_deptowner', 'kode_deptowner', 'required|trim');
-        $this->form_validation->set_rules('user_owner', 'user_owner', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/_header', $data);
@@ -379,7 +390,6 @@ class Inventaris extends CI_Controller
             $masa_garansi       = $this->input->post('masa_garansi');
             $kode_statusbarang  = $this->input->post('kode_statusbarang');
             $kode_deptowner     = $this->input->post('kode_deptowner');
-            $user_owner         = $this->input->post('user_owner');
             $foto_item = $_FILES['foto_item'];
             if ($foto_item = '') {
             } else {
@@ -406,7 +416,6 @@ class Inventaris extends CI_Controller
                     $this->db->set('masa_garansi', $masa_garansi);
                     $this->db->set('kode_statusbarang', $kode_statusbarang);
                     $this->db->set('kode_deptowner', $kode_deptowner);
-                    $this->db->set('user_owner', $user_owner);
                     $this->db->where('id_transaksi', $id_transaksi);
                     $this->db->update('tb_transaksi');
 
@@ -426,7 +435,6 @@ class Inventaris extends CI_Controller
             $this->db->set('masa_garansi', $masa_garansi);
             $this->db->set('kode_statusbarang', $kode_statusbarang);
             $this->db->set('kode_deptowner', $kode_deptowner);
-            $this->db->set('user_owner', $user_owner);
             $this->db->where('id_transaksi', $id_transaksi);
             $this->db->update('tb_transaksi');
 

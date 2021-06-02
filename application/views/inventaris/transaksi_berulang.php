@@ -41,7 +41,7 @@
                                 <td><?= $row->kode_transaksi; ?></td>
                                 <td><?= $row->kode_transaksibarang; ?></td>
                                 <td><?= $row->tanggal_input; ?></td>
-                                <td><?= $row->staff_onduty; ?></td>
+                                <td><?= $row->nama; ?></td>
                                 <td><?= $row->status_detail; ?></td>
                                 <td>
                                     <a href="<?= base_url('inventaris/transaksi_berulang_detail/' . $row->id_berulang); ?>" class="btn btn-sm btn-info" title="detail transaksi"><i class="fas fa-eye"></i></a>

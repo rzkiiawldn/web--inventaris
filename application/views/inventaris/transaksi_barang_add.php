@@ -92,13 +92,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="user_owner" class="col-sm-3 col-form-label">User Owner</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="user_owner" name="user_owner" value="<?= set_value('user_owner') ?>">
-            <?= form_error('user_owner', '<small class="text-danger text-center">', '</small>'); ?>
-          </div>
-        </div>
-        <div class="form-group row">
           <label for="tgl_beli" class="col-sm-3 col-form-label">Tanggal Beli</label>
           <div class="col-sm-9">
             <input type="date" class="form-control" id="tgl_beli" name="tgl_beli" value="<?= set_value('tgl_beli') ?>">
@@ -124,10 +117,18 @@
             <?= form_error('serial_number', '<small class="text-danger text-center">', '</small>'); ?>
           </div>
         </div>
+        
         <div class="form-group row">
-          <label for="foto_item" class="col-sm-3 col-form-label">Foto Item</label>
+          <label for="user_ga" class="col-sm-3 col-form-label">User GA</label>
           <div class="col-sm-9">
-            <input type="file" id="foto_item" name="foto_item" value="<?= set_value('foto_item') ?>">
+            <input type="text" class="form-control" id="user_ga" name="user_ga" value="<?= set_value('user_ga') ?>">
+            <?= form_error('user_ga', '<small class="text-danger text-center">', '</small>'); ?>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3">Foto Item</label>
+          <div class="col-sm-9">
+            <input type="file" name="foto_item" class="form-control">
             <?= form_error('foto_item', '<small class="text-danger text-center">', '</small>'); ?>
           </div>
         </div>

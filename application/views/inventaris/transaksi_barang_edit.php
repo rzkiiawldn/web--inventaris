@@ -13,8 +13,9 @@
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4 text-uppercase">
+  
+  <form method="post" action="" enctype="multipart/form-data">
     <div class="card-body justify-content-center">
-      <form method="post" action="" enctype="multipart/form-data">
         <input readonly type="hidden" class="form-control" id="id_transaksi" name="id_transaksi" value="<?= $transaksi_barang->id_transaksi ?>">
         <div class="form-group row">
           <label for="kode_transaksibarang" class="col-sm-3 col-form-label">Kode Transaksi Barang</label>
@@ -109,13 +110,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="user_owner" class="col-sm-3 col-form-label">User Owner</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="user_owner" name="user_owner" value="<?= $transaksi_barang->user_owner ?>">
-            <?= form_error('user_owner', '<small class="text-danger text-center">', '</small>'); ?>
-          </div>
-        </div>
-        <div class="form-group row">
           <label for="tgl_beli" class="col-sm-3 col-form-label">Tanggal Beli</label>
           <div class="col-sm-9">
             <input type="date" class="form-control" id="tgl_beli" name="tgl_beli" value="<?= $transaksi_barang->tgl_beli ?>">
@@ -162,7 +156,8 @@
           </div>
         </div>
         <button class="btn btn-primary float-right" type="submit">Simpan</button>
-      </form>
     </div>
+    
+    </form>
   </div>
 </div>

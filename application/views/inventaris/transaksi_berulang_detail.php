@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <th width="30%">Staff On Duty</th>
-                        <td>: <?= $transaksi_berulang->staff_onduty ?></td>
+                        <td>: <?= $transaksi_berulang->nama ?></td>
                     </tr>
                     <tr>
                         <th width="30%">Status Detail</th>
