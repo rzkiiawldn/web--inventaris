@@ -29,7 +29,7 @@
                             <th>Tanggal Beli</th>
                             <th>Kode Jenis Barang</th>
                             <th>Versi Barang</th>
-                            <th width="16%">Aksi</th>
+                            <th width="25%">Aksi</th>
                         </tr>
                     </thead>
                     <?php
@@ -44,6 +44,7 @@
                                 <td><?= $row->nama_jenisbarang; ?></td>
                                 <td><?= $row->versi_barang; ?></td>
                                 <td>
+                                    <a href="<?= base_url('inventaris/daftar_transaksi_berulang/' . $row->kode_transaksibarang); ?>" class="btn btn-sm btn-primary" title="daftar transaksi berulang"><i class="fas fa-undo-alt"></i></a>
                                     <a href="<?= base_url('inventaris/transaksi_barang_detail/' . $row->id_transaksi); ?>" class="btn btn-sm btn-info" title="detail transaksi"><i class="fas fa-eye"></i></a>
                                     <a href="<?= base_url('inventaris/transaksi_barang_edit/' . $row->id_transaksi); ?>" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-pen"></i></a>
                                     <a href="<?= base_url('inventaris/transaksi_barang_delete/' . $row->id_transaksi); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')" title="hapus"><i class="fas fa-trash"></i></a>

@@ -141,7 +141,7 @@ class Inventaris extends CI_Controller
             'judul'     => 'Transaksi Berulang',
             'kode'      => $kode_sekarang,
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_barang'  => $this->db->get('tb_transaksi')->result(),
+            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang")->result(),
             'vendor'    => $this->db->get('tb_vendor')->result(),
         ];
         $this->form_validation->set_rules('kode_transaksibarang', 'kode_transaksibarang', 'required|trim');
@@ -258,10 +258,23 @@ class Inventaris extends CI_Controller
         $data = [
             'judul'             => 'Transaksi Barang',
             'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner  JOIN user ON tb_transaksi.user_owner = user.id_user  WHERE id_transaksi = $id_transaksi")->row(),
+            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE staff_onduty = $id_user ORDER BY kode_transaksi DESC")->result(),
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_barang_detail');
+        $this->load->view('template/_footer');
+    }
+
+    public function daftar_transaksi_berulang($kode_transaksibarang)
+    {
+        $data = [
+            'judul'             => 'Daftar Transaksi Berulang',
+            'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
+            'transaksi_berulang'  => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE tb_transaksi_berulang.kode_transaksibarang = $kode_transaksibarang")->result(),
+            'total'  => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE tb_transaksi_berulang.kode_transaksibarang = $kode_transaksibarang")->num_rows(),
+        ];
+        $this->load->view('template/_header', $data);
+        $this->load->view('inventaris/transaksi_berulang_list');
         $this->load->view('template/_footer');
     }
 
