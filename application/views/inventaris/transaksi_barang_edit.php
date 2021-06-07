@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="kode_deptowner" class="col-sm-3 col-form-label">DepartemenS</label>
+          <label for="kode_deptowner" class="col-sm-3 col-form-label">Departement</label>
           <div class="col-sm-9">
             <select name="kode_deptowner" id="kode_deptowner" class="form-control" required>
               <option value="">-- pilih --</option>

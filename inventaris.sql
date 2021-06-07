@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jun 2021 pada 09.01
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.3.15
+-- Generation Time: Jun 07, 2021 at 10:32 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_deptownerid`
+-- Table structure for table `tb_deptownerid`
 --
 
 CREATE TABLE `tb_deptownerid` (
@@ -35,7 +34,7 @@ CREATE TABLE `tb_deptownerid` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_deptownerid`
+-- Dumping data for table `tb_deptownerid`
 --
 
 INSERT INTO `tb_deptownerid` (`id_dept`, `kode_deptOwner`, `nama_deptOwner`) VALUES
@@ -49,7 +48,7 @@ INSERT INTO `tb_deptownerid` (`id_dept`, `kode_deptOwner`, `nama_deptOwner`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_jenisbarang`
+-- Table structure for table `tb_jenisbarang`
 --
 
 CREATE TABLE `tb_jenisbarang` (
@@ -59,7 +58,7 @@ CREATE TABLE `tb_jenisbarang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_jenisbarang`
+-- Dumping data for table `tb_jenisbarang`
 --
 
 INSERT INTO `tb_jenisbarang` (`id_jenisbarang`, `kode_jenisbarang`, `nama_jenisbarang`) VALUES
@@ -72,7 +71,7 @@ INSERT INTO `tb_jenisbarang` (`id_jenisbarang`, `kode_jenisbarang`, `nama_jenisb
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_koderadio`
+-- Table structure for table `tb_koderadio`
 --
 
 CREATE TABLE `tb_koderadio` (
@@ -82,7 +81,7 @@ CREATE TABLE `tb_koderadio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_koderadio`
+-- Dumping data for table `tb_koderadio`
 --
 
 INSERT INTO `tb_koderadio` (`id`, `kode_radio`, `nama_radio`) VALUES
@@ -100,7 +99,7 @@ INSERT INTO `tb_koderadio` (`id`, `kode_radio`, `nama_radio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_statusbarang`
+-- Table structure for table `tb_statusbarang`
 --
 
 CREATE TABLE `tb_statusbarang` (
@@ -110,7 +109,7 @@ CREATE TABLE `tb_statusbarang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_statusbarang`
+-- Dumping data for table `tb_statusbarang`
 --
 
 INSERT INTO `tb_statusbarang` (`id_status`, `kode_statusbarang`, `status`) VALUES
@@ -123,7 +122,7 @@ INSERT INTO `tb_statusbarang` (`id_status`, `kode_statusbarang`, `status`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_transaksi`
+-- Table structure for table `tb_transaksi`
 --
 
 CREATE TABLE `tb_transaksi` (
@@ -146,7 +145,7 @@ CREATE TABLE `tb_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_transaksi`
+-- Dumping data for table `tb_transaksi`
 --
 
 INSERT INTO `tb_transaksi` (`id_transaksi`, `kode_transaksibarang`, `kode_radio`, `harga_beli`, `tgl_beli`, `kode_jenisbarang`, `versi_barang`, `serial_number`, `kode_vendor`, `masa_garansi`, `foto_item`, `kode_statusbarang`, `user_ga`, `tgl_input`, `kode_deptowner`, `user_owner`) VALUES
@@ -157,12 +156,13 @@ INSERT INTO `tb_transaksi` (`id_transaksi`, `kode_transaksibarang`, `kode_radio`
 (6, '900000008', 10, -2, '2021-12-31', 501, 'a', 'aa', 41, -2, 'ppsi.png', 801, '801', '2021-06-02', 904, '1'),
 (7, '900000009', 11, -1, '2021-06-07', 500, 's', 'ss', 40, -1, 'abc2.PNG', 801, '801', '2021-06-02', 903, '1'),
 (8, '900000006', 10, 1, '2021-12-31', 500, 's', 's', 40, 1, 'teslaa1.jpg', 801, '801', '2021-06-02', 903, '1'),
-(9, '900000010', 10, -1, '2021-12-31', 500, 'm', 'm', 40, -1, 'PPSI_.png', 801, '801', '2021-06-07', 903, '30');
+(9, '900000010', 10, -1, '2021-12-31', 500, 'm', 'm', 40, -1, 'PPSI_.png', 801, '801', '2021-06-07', 903, '30'),
+(10, '900000011', 11, -1, '2020-12-31', 501, 'a', 'a', 41, -1, 'Lapas-Kelas-IIA-Pekanbaru-covid19.jpg', 801, '801', '2021-06-07', 903, '1');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_transaksi_berulang`
+-- Table structure for table `tb_transaksi_berulang`
 --
 
 CREATE TABLE `tb_transaksi_berulang` (
@@ -179,18 +179,19 @@ CREATE TABLE `tb_transaksi_berulang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_transaksi_berulang`
+-- Dumping data for table `tb_transaksi_berulang`
 --
 
 INSERT INTO `tb_transaksi_berulang` (`id_berulang`, `kode_transaksi`, `kode_transaksibarang`, `kode_jenisbarang`, `keterangan`, `tanggal_input`, `staff_onduty`, `status_detail`, `kode_vendor`, `biaya_service`) VALUES
 (1, '800000001', 900000004, 0, 'aiueo', '2021-06-02', '32', 'aiueo', 41, 110000),
 (2, '800000002', 900000005, 0, 's', '2021-06-02', '32', 'a', 40, 0),
-(4, '800000003', 900000004, 502, 'h', '2021-06-02', '1', 'h', 40, 11);
+(4, '800000003', 900000004, 502, 'h', '2021-06-02', '1', 'h', 40, 11),
+(5, '800000004', 900000004, 500, 's', '2021-06-07', '1', 's', 40, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_vendor`
+-- Table structure for table `tb_vendor`
 --
 
 CREATE TABLE `tb_vendor` (
@@ -202,7 +203,7 @@ CREATE TABLE `tb_vendor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_vendor`
+-- Dumping data for table `tb_vendor`
 --
 
 INSERT INTO `tb_vendor` (`id_vendor`, `kode_vendor`, `alamat_vendor`, `kontak_vendor`, `nama_vendor`) VALUES
@@ -213,7 +214,7 @@ INSERT INTO `tb_vendor` (`id_vendor`, `kode_vendor`, `alamat_vendor`, `kontak_ve
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -225,7 +226,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `id_level`) VALUES
@@ -240,7 +241,7 @@ INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `id_level`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_akses_menu`
+-- Table structure for table `user_akses_menu`
 --
 
 CREATE TABLE `user_akses_menu` (
@@ -251,7 +252,7 @@ CREATE TABLE `user_akses_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_akses_menu`
+-- Dumping data for table `user_akses_menu`
 --
 
 INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALUES
@@ -319,7 +320,7 @@ INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_level`
+-- Table structure for table `user_level`
 --
 
 CREATE TABLE `user_level` (
@@ -328,7 +329,7 @@ CREATE TABLE `user_level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_level`
+-- Dumping data for table `user_level`
 --
 
 INSERT INTO `user_level` (`id_level`, `level`) VALUES
@@ -343,7 +344,7 @@ INSERT INTO `user_level` (`id_level`, `level`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_menu`
+-- Table structure for table `user_menu`
 --
 
 CREATE TABLE `user_menu` (
@@ -354,7 +355,7 @@ CREATE TABLE `user_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_menu`
+-- Dumping data for table `user_menu`
 --
 
 INSERT INTO `user_menu` (`id_menu`, `menu`, `is_active`, `urutan_menu`) VALUES
@@ -365,7 +366,7 @@ INSERT INTO `user_menu` (`id_menu`, `menu`, `is_active`, `urutan_menu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_sub_menu`
+-- Table structure for table `user_sub_menu`
 --
 
 CREATE TABLE `user_sub_menu` (
@@ -379,7 +380,7 @@ CREATE TABLE `user_sub_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_sub_menu`
+-- Dumping data for table `user_sub_menu`
 --
 
 INSERT INTO `user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `is_active`, `urutan_sub`) VALUES
@@ -403,150 +404,150 @@ INSERT INTO `user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `is_
 --
 
 --
--- Indeks untuk tabel `tb_deptownerid`
+-- Indexes for table `tb_deptownerid`
 --
 ALTER TABLE `tb_deptownerid`
   ADD PRIMARY KEY (`id_dept`);
 
 --
--- Indeks untuk tabel `tb_jenisbarang`
+-- Indexes for table `tb_jenisbarang`
 --
 ALTER TABLE `tb_jenisbarang`
   ADD PRIMARY KEY (`id_jenisbarang`);
 
 --
--- Indeks untuk tabel `tb_koderadio`
+-- Indexes for table `tb_koderadio`
 --
 ALTER TABLE `tb_koderadio`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tb_statusbarang`
+-- Indexes for table `tb_statusbarang`
 --
 ALTER TABLE `tb_statusbarang`
   ADD PRIMARY KEY (`id_status`);
 
 --
--- Indeks untuk tabel `tb_transaksi`
+-- Indexes for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
   ADD KEY `kode_radio` (`kode_radio`);
 
 --
--- Indeks untuk tabel `tb_transaksi_berulang`
+-- Indexes for table `tb_transaksi_berulang`
 --
 ALTER TABLE `tb_transaksi_berulang`
   ADD PRIMARY KEY (`id_berulang`);
 
 --
--- Indeks untuk tabel `tb_vendor`
+-- Indexes for table `tb_vendor`
 --
 ALTER TABLE `tb_vendor`
   ADD PRIMARY KEY (`id_vendor`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `user_akses_menu`
+-- Indexes for table `user_akses_menu`
 --
 ALTER TABLE `user_akses_menu`
   ADD PRIMARY KEY (`id_akses`);
 
 --
--- Indeks untuk tabel `user_level`
+-- Indexes for table `user_level`
 --
 ALTER TABLE `user_level`
   ADD PRIMARY KEY (`id_level`);
 
 --
--- Indeks untuk tabel `user_menu`
+-- Indexes for table `user_menu`
 --
 ALTER TABLE `user_menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
--- Indeks untuk tabel `user_sub_menu`
+-- Indexes for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id_sub`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_deptownerid`
+-- AUTO_INCREMENT for table `tb_deptownerid`
 --
 ALTER TABLE `tb_deptownerid`
-  MODIFY `id_dept` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_dept` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_jenisbarang`
+-- AUTO_INCREMENT for table `tb_jenisbarang`
 --
 ALTER TABLE `tb_jenisbarang`
-  MODIFY `id_jenisbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_jenisbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_koderadio`
+-- AUTO_INCREMENT for table `tb_koderadio`
 --
 ALTER TABLE `tb_koderadio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_statusbarang`
+-- AUTO_INCREMENT for table `tb_statusbarang`
 --
 ALTER TABLE `tb_statusbarang`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_transaksi`
+-- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_transaksi_berulang`
+-- AUTO_INCREMENT for table `tb_transaksi_berulang`
 --
 ALTER TABLE `tb_transaksi_berulang`
-  MODIFY `id_berulang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_berulang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_vendor`
+-- AUTO_INCREMENT for table `tb_vendor`
 --
 ALTER TABLE `tb_vendor`
-  MODIFY `id_vendor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_vendor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT untuk tabel `user_akses_menu`
+-- AUTO_INCREMENT for table `user_akses_menu`
 --
 ALTER TABLE `user_akses_menu`
   MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
--- AUTO_INCREMENT untuk tabel `user_level`
+-- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `user_menu`
+-- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
   MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `user_sub_menu`
+-- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;

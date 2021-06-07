@@ -473,21 +473,20 @@ class Inventaris extends CI_Controller
 
     public function cetak()
     {
-        $tanggalawal    = $this->input->post('tanggalawal');
-        $tanggalakhir   = $this->input->post('tanggalakhir');
+        $bulan    = $this->input->post('bulan');
+        $tahun   = $this->input->post('tahun');
         $id_level       = $this->input->post('id_level');
         $id_user       = $this->input->post('id_user');
 
         if ($id_level == 3 || $id_level == 1) {
-            $data_filter = $this->pengaturan_model->filter_all($tanggalawal, $tanggalakhir);
+            $data_filter = $this->pengaturan_model->filter_all($bulan, $tahun);
         } else {
-            $data_filter = $this->pengaturan_model->filter_id($tanggalawal, $tanggalakhir, $id_user);
+            $data_filter = $this->pengaturan_model->filter_id($bulan, $tahun, $id_user);
         }
 
         $this->load->library('dompdf_gen');
         $data = [
             'judul'            => 'Laporan inventory berdasarkan tanggal',
-            'subtitle'         => 'Dari tanggal :' . $tanggalawal . 'Sampai tanggal' . $tanggalakhir,
             'data_filter'      => $data_filter,
             'user'             => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
         ];
@@ -506,27 +505,90 @@ class Inventaris extends CI_Controller
 
     public function cetak_perwilayah()
     {
-        $tanggalawal    = $this->input->post('tanggalawal');
-        $tanggalakhir   = $this->input->post('tanggalakhir');
+        $bulan    = $this->input->post('bulan');
+        $tahun   = $this->input->post('tahun');
         $nama_radio     = $this->input->post('nama_radio');
         $id_level       = $this->input->post('id_level');
         $id_user        = $this->input->post('id_user');
 
         if ($id_level == 3 || $id_level == 1) {
-            $data_filter = $this->pengaturan_model->filterbytanggal_all($tanggalawal, $tanggalakhir, $nama_radio);
+            $data_filter = $this->pengaturan_model->filterbytanggal_all($bulan, $tahun, $nama_radio);
         } else {
-            $data_filter = $this->pengaturan_model->filterbytanggal_id($tanggalawal, $tanggalakhir, $nama_radio, $id_user);
+            $data_filter = $this->pengaturan_model->filterbytanggal_id($bulan, $tahun, $nama_radio, $id_user);
         }
 
         $this->load->library('dompdf_gen');
         $data = [
             'judul'            => 'Laporan inventory berdasarkan tanggal',
-            'subtitle'         => 'Dari tanggal :' . $tanggalawal . 'Sampai tanggal' . $tanggalakhir,
+            'subtitle'         => 'Dari tanggal :' . $bulan . 'Sampai tanggal' . $tahun,
             'data_filter'      => $data_filter,
             'user'             => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
         ];
 
-        $this->load->view('inventaris/cetak_transaksi_wilayah', $data);
+        $this->load->view('inventaris/cetak_transaksi', $data);
+
+        $paper_size        = 'A4';
+        $orientation    = 'potrait';
+        $html             = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan_perwilayah.pdf", array('Attachment' => 0));
+    }
+    
+    public function cetaktahun()
+    {
+        $tahun   = $this->input->post('tahun');
+        $id_level       = $this->input->post('id_level');
+        $id_user       = $this->input->post('id_user');
+
+        if ($id_level == 3 || $id_level == 1) {
+            $data_filter = $this->pengaturan_model->filter_tahunall($tahun);
+        } else {
+            $data_filter = $this->pengaturan_model->filter_tahunid($tahun, $id_user);
+        }
+
+        $this->load->library('dompdf_gen');
+        $data = [
+            'judul'            => 'Laporan inventory berdasarkan tanggal',
+            'data_filter'      => $data_filter,
+            'user'             => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+        ];
+
+        $this->load->view('inventaris/cetak_transaksi', $data);
+
+        $paper_size        = 'A4';
+        $orientation    = 'potrait';
+        $html             = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan_tahunan.pdf", array('Attachment' => 0));
+    }
+
+    public function cetaktahun_perwilayah()
+    {
+        $tahun   = $this->input->post('tahun');
+        $nama_radio     = $this->input->post('nama_radio');
+        $id_level       = $this->input->post('id_level');
+        $id_user        = $this->input->post('id_user');
+
+        if ($id_level == 3 || $id_level == 1) {
+            $data_filter = $this->pengaturan_model->filterbytanggal_tahunall($tahun, $nama_radio);
+        } else {
+            $data_filter = $this->pengaturan_model->filterbytanggal_tahunid($tahun, $nama_radio, $id_user);
+        }
+
+        $this->load->library('dompdf_gen');
+        $data = [
+            'judul'            => 'Laporan inventory berdasarkan tanggal',
+            'data_filter'      => $data_filter,
+            'user'             => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+        ];
+
+        $this->load->view('inventaris/cetak_transaksi', $data);
 
         $paper_size        = 'A4';
         $orientation    = 'potrait';
