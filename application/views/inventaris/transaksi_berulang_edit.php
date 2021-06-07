@@ -40,6 +40,22 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="kode_jenisbarang" class="col-sm-3 col-form-label">Jenis Barang</label>
+          <div class="col-sm-9">
+            <select name="kode_jenisbarang" id="kode_jenisbarang" class="form-control" required>
+              <option value="">-- pilih --</option>
+              <?php foreach ($jenis_barang as $row) : ?>
+                <?php if ($row->kode_jenisbarang == $transaksi_berulang->kode_jenisbarang) { ?>
+                  <option value="<?= $row->kode_jenisbarang ?>" selected><?= $row->nama_jenisbarang ?></option>
+                <?php } else { ?>
+                  <option value="<?= $row->kode_jenisbarang ?>"><?= $row->nama_jenisbarang ?></option>
+                <?php } ?>
+              <?php endforeach; ?>
+            </select>
+            <?= form_error('kode_jenisbarang', '<small class="text-danger text-center">', '</small>'); ?>
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="keterangan" class="col-sm-3 col-form-label">Keterangan</label>
           <div class="col-sm-9">
             <textarea name="keterangan" id="keterangan" rows="8" class="form-control"><?= $transaksi_berulang->keterangan ?></textarea>

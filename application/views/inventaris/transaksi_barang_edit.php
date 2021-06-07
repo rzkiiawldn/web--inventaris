@@ -13,9 +13,9 @@
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4 text-uppercase">
-  
-  <form method="post" action="" enctype="multipart/form-data">
-    <div class="card-body justify-content-center">
+
+    <form method="post" action="" enctype="multipart/form-data">
+      <div class="card-body justify-content-center">
         <input readonly type="hidden" class="form-control" id="id_transaksi" name="id_transaksi" value="<?= $transaksi_barang->id_transaksi ?>">
         <div class="form-group row">
           <label for="kode_transaksibarang" class="col-sm-3 col-form-label">Kode Transaksi Barang</label>
@@ -155,9 +155,8 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary float-right" type="submit">Simpan</button>
-    </div>
-    
+        <button class="btn btn-primary float-right mb-3" type="submit">Simpan</button>
+      </div>
     </form>
   </div>
 </div>

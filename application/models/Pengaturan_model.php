@@ -2,31 +2,27 @@
 
 class Pengaturan_model extends CI_Model
 {
-    // MENGAMBIL DATA / READ (JIKA ID KOSONG MAKA TAMPILKAN SEMUA DATA, TETAPI JIKA ID TIDAK KOSONG MAKA AMBIL DATA BERDASARKAN ID)
-    public function get($id = null)
+
+    public function filter_all($tanggalawal, $tanggalakhir)
     {
-        if ($id != null) {
-            return $this->db->get_where('table', ['id' => $id]);
-        }
-        return $this->db->get('table');
+        $query = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio WHERE tgl_beli BETWEEN '$tanggalawal' AND '$tanggalakhir' ORDER BY tgl_beli ASC ");
+        return $query->result_array();
     }
 
-    // TAMBAH DATA
-    public function add($data)
+    public function filterbytanggal_all($tanggalawal, $tanggalakhir, $nama_radio)
     {
-        $this->db->insert('table', $data);
+        $query = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio WHERE tgl_beli BETWEEN '$tanggalawal' AND '$tanggalakhir' AND tb_transaksi.kode_radio ='$nama_radio' ORDER BY tgl_beli ASC ");
+        return $query->result_array();
+    }
+    public function filter_id($tanggalawal, $tanggalakhir, $id_user)
+    {
+        $query = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio WHERE tgl_beli BETWEEN '$tanggalawal' AND '$tanggalakhir' AND user_owner = $id_user ORDER BY tgl_beli ASC ");
+        return $query->result_array();
     }
 
-    // EDIT DATA
-    public function edit()
+    public function filterbytanggal_id($tanggalawal, $tanggalakhir, $nama_radio, $id_user)
     {
-        $this->db->update('table');
-    }
-
-    // HAPUS DATA
-    public function delete($id)
-    {
-        $this->db->where('id', $id);
-        $this->db->delete('table');
+        $query = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio WHERE tgl_beli BETWEEN '$tanggalawal' AND '$tanggalakhir' AND tb_transaksi.kode_radio ='$nama_radio'  AND user_owner = $id_user ORDER BY tgl_beli ASC ");
+        return $query->result_array();
     }
 }

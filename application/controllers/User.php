@@ -14,16 +14,19 @@ class User extends CI_Controller
 
 	{
 		$username  = $this->session->userdata('username');
+		$id_user   = $this->session->userdata('id_user');
 		$data = [
-			'judul'     => 'Dashboard',
-			'user'      => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level WHERE username = '$username' ")->row(),
-			'deptowner' => $this->db->get('tb_deptownerid')->num_rows(),
-			'jenis_barang' => $this->db->get('tb_jenisbarang')->num_rows(),
-			'kode_radio' => $this->db->get('tb_koderadio')->num_rows(),
-			'status' => $this->db->get('tb_statusbarang')->num_rows(),
-			'transaksi_barang' => $this->db->get('tb_transaksi')->num_rows(),
-			'transaksi_berulang' => $this->db->get('tb_transaksi_berulang')->num_rows(),
-			'vendor' => $this->db->get('tb_vendor')->num_rows(),
+			'judul'     					=> 'Dashboard',
+			'user'      					=> $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level WHERE username = '$username' ")->row(),
+			'deptowner' 					=> $this->db->get('tb_deptownerid')->num_rows(),
+			'jenis_barang' 				=> $this->db->get('tb_jenisbarang')->num_rows(),
+			'kode_radio' 					=> $this->db->get('tb_koderadio')->num_rows(),
+			'status' 							=> $this->db->get('tb_statusbarang')->num_rows(),
+			'vendor' 							=> $this->db->get('tb_vendor')->num_rows(),
+			'transaksi_barang' 			=> $this->db->get('tb_transaksi')->num_rows(),
+			'transaksi_berulang' 		=> $this->db->get('tb_transaksi_berulang')->num_rows(),
+			'transaksi_barang_id' 	=> $this->db->get_where('tb_transaksi', ['user_owner' => $id_user])->num_rows(),
+			'transaksi_berulang_id' => $this->db->get_where('tb_transaksi_berulang', ['staff_onduty' => $id_user])->num_rows(),
 		];
 		$this->load->view('template/_header', $data);
 		$this->load->view('index');

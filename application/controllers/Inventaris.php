@@ -104,8 +104,8 @@ class Inventaris extends CI_Controller
     {
         $id_user = $this->session->userdata('id_user');
         $id_level = $this->session->userdata('id_level');
-        $level = $this->db->get_where('user_level',['id_level' => $id_level])->row();
-        if($level->level == 'Admin' || $level->level == 'EDP'){
+        $level = $this->db->get_where('user_level', ['id_level' => $id_level])->row();
+        if ($level->level == 'Admin' || $level->level == 'EDP') {
             $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user ORDER BY kode_transaksi DESC")->result();
         } else {
             $transaksi_berulang = $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE staff_onduty = $id_user ORDER BY kode_transaksi DESC")->result();
@@ -140,6 +140,7 @@ class Inventaris extends CI_Controller
         $data = [
             'judul'     => 'Transaksi Berulang',
             'kode'      => $kode_sekarang,
+            'jenis_barang'  => $this->db->get('tb_jenisbarang')->result(),
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
             'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang")->result(),
             'vendor'    => $this->db->get('tb_vendor')->result(),
@@ -157,14 +158,16 @@ class Inventaris extends CI_Controller
         } else {
             $kode_transaksi         = $this->input->post('kode_transaksi');
             $kode_transaksibarang         = $this->input->post('kode_transaksibarang');
+            $kode_jenisbarang         = $this->input->post('kode_jenisbarang');
             $keterangan         = $this->input->post('keterangan');
             $status_detail   = $this->input->post('status_detail');
             $kode_vendor       = $this->input->post('kode_vendor');
             $biaya_service      = $this->input->post('biaya_service');
 
             $data = [
-                'kode_transaksi'        => $kode_transaksi,                
+                'kode_transaksi'        => $kode_transaksi,
                 'kode_transaksibarang'        => $kode_transaksibarang,
+                'kode_jenisbarang'        => $kode_jenisbarang,
                 'keterangan'        => $keterangan,
                 'tanggal_input'     => date('Y-m-d'),
                 'staff_onduty'      => $this->session->userdata('id_user'),
@@ -185,6 +188,7 @@ class Inventaris extends CI_Controller
             'judul'     => 'Transaksi Berulang',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
             'transaksi_barang'  => $this->db->get('tb_transaksi')->result(),
+            'jenis_barang'  => $this->db->get('tb_jenisbarang')->result(),
             'vendor'    => $this->db->get('tb_vendor')->result(),
             'transaksi_berulang'    => $this->db->get_where('tb_transaksi_berulang', ['id_berulang' => $id_berulang])->row()
         ];
@@ -203,6 +207,7 @@ class Inventaris extends CI_Controller
             $id_berulang            = $this->input->post('id_berulang');
             $kode_transaksi         = $this->input->post('kode_transaksi');
             $kode_transaksibarang   = $this->input->post('kode_transaksibarang');
+            $kode_jenisbarang   = $this->input->post('kode_jenisbarang');
             $keterangan         = $this->input->post('keterangan');
             $status_detail      = $this->input->post('status_detail');
             $kode_vendor        = $this->input->post('kode_vendor');
@@ -210,6 +215,7 @@ class Inventaris extends CI_Controller
 
             $this->db->set('kode_transaksi', $kode_transaksi);
             $this->db->set('kode_transaksibarang', $kode_transaksibarang);
+            $this->db->set('kode_jenisbarang', $kode_jenisbarang);
             $this->db->set('keterangan', $keterangan);
             $this->db->set('status_detail', $status_detail);
             $this->db->set('biaya_service', $biaya_service);
@@ -234,11 +240,11 @@ class Inventaris extends CI_Controller
 
     public function transaksi_barang()
     {
-        
+
         $id_user = $this->session->userdata('id_user');
         $id_level = $this->session->userdata('id_level');
-        $level = $this->db->get_where('user_level',['id_level' => $id_level])->row();
-        if($level->level == 'Admin' || $level->level == 'EDP'){
+        $level = $this->db->get_where('user_level', ['id_level' => $id_level])->row();
+        if ($level->level == 'Admin' || $level->level == 'EDP') {
             $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner ORDER BY kode_transaksibarang DESC")->result();
         } else {
             $transaksi_barang = $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner WHERE user_owner = $id_user ORDER BY kode_transaksibarang DESC")->result();
@@ -246,7 +252,8 @@ class Inventaris extends CI_Controller
         $data = [
             'judul'             => 'Transaksi Barang',
             'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_barang'  => $transaksi_barang
+            'transaksi_barang'  => $transaksi_barang,
+            'radio'             => $this->db->get('tb_koderadio')->result()
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_barang');
@@ -255,10 +262,11 @@ class Inventaris extends CI_Controller
 
     public function transaksi_barang_detail($id_transaksi)
     {
+        $id_user = $this->session->userdata('id_user');
         $data = [
             'judul'             => 'Transaksi Barang',
             'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE staff_onduty = $id_user ORDER BY kode_transaksi DESC")->result(),
+            'transaksi_barang'  => $this->db->query("SELECT * FROM tb_transaksi JOIN tb_koderadio ON tb_transaksi.kode_radio = tb_koderadio.kode_radio JOIN tb_jenisbarang ON tb_transaksi.kode_jenisbarang = tb_jenisbarang.kode_jenisbarang JOIN tb_vendor ON tb_transaksi.kode_vendor = tb_vendor.kode_vendor JOIN tb_statusbarang ON tb_transaksi.kode_statusbarang = tb_statusbarang.kode_statusbarang JOIN tb_deptownerid ON tb_transaksi.kode_deptowner = tb_deptownerid.kode_deptOwner JOIN user ON tb_transaksi.user_owner = user.id_user WHERE id_transaksi = $id_transaksi")->row(),
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_barang_detail');
@@ -268,10 +276,10 @@ class Inventaris extends CI_Controller
     public function daftar_transaksi_berulang($kode_transaksibarang)
     {
         $data = [
-            'judul'             => 'Daftar Transaksi Berulang',
-            'user'              => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'transaksi_berulang'  => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE tb_transaksi_berulang.kode_transaksibarang = $kode_transaksibarang")->result(),
-            'total'  => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE tb_transaksi_berulang.kode_transaksibarang = $kode_transaksibarang")->num_rows(),
+            'judul'                 => 'Daftar Transaksi Berulang',
+            'user'                  => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
+            'transaksi_berulang'    => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE tb_transaksi_berulang.kode_transaksibarang = $kode_transaksibarang")->result(),
+            'total'                 => $this->db->query("SELECT * FROM tb_transaksi_berulang JOIN tb_vendor ON tb_transaksi_berulang.kode_vendor = tb_vendor.kode_vendor  JOIN tb_transaksi ON tb_transaksi_berulang.kode_transaksibarang = tb_transaksi.kode_transaksibarang JOIN user ON tb_transaksi_berulang.staff_onduty = user.id_user WHERE tb_transaksi_berulang.kode_transaksibarang = $kode_transaksibarang")->num_rows(),
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('inventaris/transaksi_berulang_list');
@@ -461,6 +469,73 @@ class Inventaris extends CI_Controller
         $this->db->delete('tb_transaksi');
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Transaksi Barang Dihapus</div>');
         redirect('inventaris/transaksi_barang');
+    }
+
+    public function cetak()
+    {
+        $tanggalawal    = $this->input->post('tanggalawal');
+        $tanggalakhir   = $this->input->post('tanggalakhir');
+        $id_level       = $this->input->post('id_level');
+        $id_user       = $this->input->post('id_user');
+
+        if ($id_level == 3 || $id_level == 1) {
+            $data_filter = $this->pengaturan_model->filter_all($tanggalawal, $tanggalakhir);
+        } else {
+            $data_filter = $this->pengaturan_model->filter_id($tanggalawal, $tanggalakhir, $id_user);
+        }
+
+        $this->load->library('dompdf_gen');
+        $data = [
+            'judul'            => 'Laporan inventory berdasarkan tanggal',
+            'subtitle'         => 'Dari tanggal :' . $tanggalawal . 'Sampai tanggal' . $tanggalakhir,
+            'data_filter'      => $data_filter,
+            'user'             => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+        ];
+
+        $this->load->view('inventaris/cetak_transaksi', $data);
+
+        $paper_size        = 'A4';
+        $orientation    = 'potrait';
+        $html             = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan.pdf", array('Attachment' => 0));
+    }
+
+    public function cetak_perwilayah()
+    {
+        $tanggalawal    = $this->input->post('tanggalawal');
+        $tanggalakhir   = $this->input->post('tanggalakhir');
+        $nama_radio     = $this->input->post('nama_radio');
+        $id_level       = $this->input->post('id_level');
+        $id_user        = $this->input->post('id_user');
+
+        if ($id_level == 3 || $id_level == 1) {
+            $data_filter = $this->pengaturan_model->filterbytanggal_all($tanggalawal, $tanggalakhir, $nama_radio);
+        } else {
+            $data_filter = $this->pengaturan_model->filterbytanggal_id($tanggalawal, $tanggalakhir, $nama_radio, $id_user);
+        }
+
+        $this->load->library('dompdf_gen');
+        $data = [
+            'judul'            => 'Laporan inventory berdasarkan tanggal',
+            'subtitle'         => 'Dari tanggal :' . $tanggalawal . 'Sampai tanggal' . $tanggalakhir,
+            'data_filter'      => $data_filter,
+            'user'             => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+        ];
+
+        $this->load->view('inventaris/cetak_transaksi_wilayah', $data);
+
+        $paper_size        = 'A4';
+        $orientation    = 'potrait';
+        $html             = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan_perwilayah.pdf", array('Attachment' => 0));
     }
 
     /* ================================ STATUS ===================================*/

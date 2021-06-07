@@ -28,10 +28,22 @@
             <select name="kode_transaksibarang" id="kode_transaksibarang" class="form-control" required>
               <option value="">-- pilih --</option>
               <?php foreach ($transaksi_barang as $row) : ?>
-                <option value="<?= $row->kode_transaksibarang ?>"><?= $row->kode_transaksibarang ?> | <?= $row->nama_jenisbarang ?></option>
+                <option value="<?= $row->kode_transaksibarang ?>"><?= $row->kode_transaksibarang ?></option>
               <?php endforeach; ?>
             </select>
             <?= form_error('kode_transaksibarang', '<small class="text-danger text-center">', '</small>'); ?>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="kode_jenisbarang" class="col-sm-3 col-form-label">Jenis Barang</label>
+          <div class="col-sm-9">
+            <select name="kode_jenisbarang" id="kode_jenisbarang" class="form-control" required>
+              <option value="">-- pilih --</option>
+              <?php foreach ($jenis_barang as $row) : ?>
+                <option value="<?= $row->kode_jenisbarang ?>"><?= $row->nama_jenisbarang ?></option>
+              <?php endforeach; ?>
+            </select>
+            <?= form_error('kode_jenisbarang', '<small class="text-danger text-center">', '</small>'); ?>
           </div>
         </div>
         <div class="form-group row">
