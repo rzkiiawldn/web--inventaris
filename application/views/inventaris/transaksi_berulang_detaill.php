@@ -7,7 +7,7 @@
             <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
         </div>
         <div class="col">
-            <a href="<?= base_url('inventaris/transaksi_berulang'); ?>" class="btn btn-primary mb-3 float-right"><i class="fas fa-chevron-circle-left"></i> Kembali</a>
+            <a href="<?= base_url('inventaris/daftar_transaksi_berulang/'. $transaksi_berulang->kode_transaksibarang); ?>" class="btn btn-primary mb-3 float-right"><i class="fas fa-chevron-circle-left"></i> Kembali</a>
         </div>
     </div>
     <div class="row">
@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <th width="30%">Nama Barang</th>
-                        <td>: <?= $transaksi_berulang->nama_jenisbarang ?></td>
+                        <td>: <?= $transaksi_berulang->jenisbarang ?></td>
                     </tr>
                     <tr>
                         <th width="30%">Keterangan</th>
@@ -58,7 +58,7 @@
                         <td>: <?= $transaksi_berulang->biaya_service ?></td>
                     </tr>
                     <tr>
-                        <th width="30%" colspan="2"><a href="<?= base_url('inventaris/cetak_berulangId/'. $transaksi_berulang->kode_transaksi) ?>" class="btn btn-primary float-right"><i class="fas fa-print"></i> Cetak</a></th>
+                    <th width="30%" colspan="2"><a href="<?= base_url('inventaris/cetak_berulangId/'. $transaksi_berulang->kode_transaksi) ?>" class="btn btn-primary float-right"><i class="fas fa-print"></i> Cetak</a></th>
                     </tr>
                 </table>
             </div>

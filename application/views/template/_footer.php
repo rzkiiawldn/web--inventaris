@@ -41,6 +41,7 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
+<script src="<?= base_url() ?>assets/js/jquery.js"></script>
 <script src="<?= base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url() ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -57,6 +58,23 @@
 <!-- Page level custom scripts -->
 <script src="<?= base_url() ?>assets/js/demo/datatables-demo.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#kode_transaksibarang').change(function(){
+            var id=$(this).val();
+            $.ajax({
+                url : "<?php echo base_url();?>inventaris/get_namabarang",
+                method : "POST",
+                data : {id: id},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    $('.kode_jenisbarang').val(data.nama_jenisbarang);
+                }
+            });
+        });
+    });
+</script>
 <!-- Custom Script -->
 <script>
     var hoursLabel = document.getElementById("hours");

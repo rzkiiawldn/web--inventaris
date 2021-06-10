@@ -9,19 +9,19 @@
     </div>
     <div class="row">
         
-        <div class="col">
-        <div class="dropdown ">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-print"></i> Cetak data
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdata">Cetak Bulanan</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdatawilayah">Cetak Bulanan Perdaerah</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdata_tahun">Cetak Tahunan</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdatawilayah_tahun">Cetak Tahunan Perdaerah</a>
-        </div>
-        </div>
-        </div>
+        <!-- <div class="col">
+            <div class="dropdown ">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-print"></i> Cetak data
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdata">Cetak Bulanan</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdatawilayah">Cetak Bulanan Perdaerah</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdata_tahun">Cetak Tahunan</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cetakdatawilayah_tahun">Cetak Tahunan Perdaerah</a>
+            </div>
+            </div>
+        </div> -->
         <div class="col">
             <a href="<?= base_url('inventaris/transaksi_barang_add'); ?>" class="btn btn-primary mb-3 float-right"><i class="fas fa-plus"></i> Tambah</a>
         </div>

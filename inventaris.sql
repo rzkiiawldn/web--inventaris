@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2021 at 10:32 AM
+-- Generation Time: Jun 10, 2021 at 04:47 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -157,7 +157,7 @@ INSERT INTO `tb_transaksi` (`id_transaksi`, `kode_transaksibarang`, `kode_radio`
 (7, '900000009', 11, -1, '2021-06-07', 500, 's', 'ss', 40, -1, 'abc2.PNG', 801, '801', '2021-06-02', 903, '1'),
 (8, '900000006', 10, 1, '2021-12-31', 500, 's', 's', 40, 1, 'teslaa1.jpg', 801, '801', '2021-06-02', 903, '1'),
 (9, '900000010', 10, -1, '2021-12-31', 500, 'm', 'm', 40, -1, 'PPSI_.png', 801, '801', '2021-06-07', 903, '30'),
-(10, '900000011', 11, -1, '2020-12-31', 501, 'a', 'a', 41, -1, 'Lapas-Kelas-IIA-Pekanbaru-covid19.jpg', 801, '801', '2021-06-07', 903, '1');
+(11, '900000011', 16, -1, '2021-12-31', 500, 'a', 'a', 40, -1, 'rizik1.jpg', 801, '801', '2021-06-09', 903, '1');
 
 -- --------------------------------------------------------
 
@@ -169,7 +169,7 @@ CREATE TABLE `tb_transaksi_berulang` (
   `id_berulang` int(11) NOT NULL,
   `kode_transaksi` tinytext NOT NULL,
   `kode_transaksibarang` bigint(20) NOT NULL,
-  `kode_jenisbarang` int(11) NOT NULL,
+  `jenisbarang` varchar(225) NOT NULL,
   `keterangan` varchar(1000) NOT NULL,
   `tanggal_input` date NOT NULL,
   `staff_onduty` varchar(500) NOT NULL,
@@ -182,11 +182,12 @@ CREATE TABLE `tb_transaksi_berulang` (
 -- Dumping data for table `tb_transaksi_berulang`
 --
 
-INSERT INTO `tb_transaksi_berulang` (`id_berulang`, `kode_transaksi`, `kode_transaksibarang`, `kode_jenisbarang`, `keterangan`, `tanggal_input`, `staff_onduty`, `status_detail`, `kode_vendor`, `biaya_service`) VALUES
-(1, '800000001', 900000004, 0, 'aiueo', '2021-06-02', '32', 'aiueo', 41, 110000),
-(2, '800000002', 900000005, 0, 's', '2021-06-02', '32', 'a', 40, 0),
-(4, '800000003', 900000004, 502, 'h', '2021-06-02', '1', 'h', 40, 11),
-(5, '800000004', 900000004, 500, 's', '2021-06-07', '1', 's', 40, 0);
+INSERT INTO `tb_transaksi_berulang` (`id_berulang`, `kode_transaksi`, `kode_transaksibarang`, `jenisbarang`, `keterangan`, `tanggal_input`, `staff_onduty`, `status_detail`, `kode_vendor`, `biaya_service`) VALUES
+(1, '800000001', 900000005, 'mobil', 'aiueo', '2021-06-02', '32', 'aiueo', 41, 110000),
+(2, '800000002', 900000004, 'NoteBook', 's', '2021-06-02', '32', 'a', 40, 0),
+(4, '800000003', 900000004, '502', 'h', '2021-06-02', '1', 'h', 40, 11),
+(5, '800000004', 900000005, 'mobil', 's', '2021-06-07', '1', 's', 40, 0),
+(6, '800000005', 900000005, 'mobil', 's', '2021-06-09', '1', 's', 40, 0);
 
 -- --------------------------------------------------------
 
@@ -315,7 +316,14 @@ INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALU
 (85, 9, 10, 20),
 (86, 10, 10, 20),
 (87, 11, 10, 20),
-(88, 12, 10, 20);
+(88, 12, 10, 20),
+(96, 1, 11, 28),
+(97, 3, 11, 28),
+(98, 8, 11, 28),
+(100, 9, 11, 28),
+(101, 10, 11, 28),
+(102, 11, 11, 28),
+(103, 12, 11, 28);
 
 -- --------------------------------------------------------
 
@@ -361,7 +369,8 @@ CREATE TABLE `user_menu` (
 INSERT INTO `user_menu` (`id_menu`, `menu`, `is_active`, `urutan_menu`) VALUES
 (1, 'Pengaturan', 1, 4),
 (2, 'User', 1, 1),
-(10, 'Inventaris', 1, 2);
+(10, 'Inventaris', 1, 2),
+(11, 'Laporan', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -397,7 +406,8 @@ INSERT INTO `user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `is_
 (24, 10, 'Status', 'inventaris/status', 'fas fa-fw fa-archway', 1, 4),
 (25, 10, 'Kode Radio', 'inventaris/kode_radio', 'fas fa-fw fa-broadcast-tower', 1, 5),
 (26, 10, 'Jenis Barang', 'inventaris/jenis_barang', 'fas fa-fw fa-chart-bar', 1, 6),
-(27, 10, 'DeptOwner', 'inventaris/deptOwner', 'fas fa-fw fa-users', 1, 7);
+(27, 10, 'DeptOwner', 'inventaris/deptOwner', 'fas fa-fw fa-users', 1, 7),
+(28, 11, 'Laporan', 'laporan', 'fas fa-print', 1, 10);
 
 --
 -- Indexes for dumped tables
@@ -508,13 +518,13 @@ ALTER TABLE `tb_statusbarang`
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi_berulang`
 --
 ALTER TABLE `tb_transaksi_berulang`
-  MODIFY `id_berulang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_berulang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_vendor`
@@ -532,7 +542,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_akses_menu`
 --
 ALTER TABLE `user_akses_menu`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `user_level`
@@ -544,13 +554,13 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

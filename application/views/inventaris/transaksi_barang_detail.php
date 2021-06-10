@@ -85,6 +85,11 @@
             <th width="30%">Departemen</th>
             <td>: <?= $transaksi_barang->nama_deptOwner ?></td>
           </tr>
+          <tr>
+            <th width="30%" colspan="2">
+              <a href="<?= base_url('inventaris/cetak_barangId/'. $transaksi_barang->kode_transaksibarang) ?>" class="btn btn-primary float-right"><i class="fas fa-print"></i> Cetak</a>
+            </th>
+          </tr>
         </table>
       </div>
     </div>
