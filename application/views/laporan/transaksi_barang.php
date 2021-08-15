@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <label>Tahun</label>
                                     <select name="tahun" id="tahun" class="form-control">
-                                        <?php for($tahun = date('Y'); $tahun >= (date('Y')-3); $tahun--): ?>
+                                        <?php for($tahun = date('Y'); $tahun >= (date('Y')-2); $tahun--): ?>
                                         <option value="<?= $tahun; ?>"><?= $tahun; ?></option>
                                         <?php endfor; ?>
                                     </select>
